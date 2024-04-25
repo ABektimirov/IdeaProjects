@@ -1,0 +1,714 @@
+[
+#if ($s2c1 == "get")
+{"className":"Form", "label": "Получение лицензии на деятельность по тушению пожаров", "value": ""},
+#elseif ($s35c1 == "change")
+{"className":"Form", "label": "Внесение изменений в реестр лицензий на осуществление деятельности по тушению пожаров", "value": ""},
+#elseif ($s2c1 == "stop")
+{"className":"Form", "label": "Прекращение действия лицензии на деятельность по тушению пожаров", "value": ""},
+#elseif ($s35c1 == "contact")
+{"className":"Form", "label": "Внесение изменений в контактные данные", "value": ""},
+#else
+{"className":"Form", "label": "Подтверждение соответствия лицензиата лицензионным требованиям", "value": ""},
+#end
+
+{"className":"FormStep", "label": "Номер заявления на ЕПГУ", "value": ""},
+{"className":"FieldText", "label": "", "value": "$orderId"},
+{"className":"FormStep", "label": "Дата и время подачи заявления", "value": ""},
+{"className":"FieldText", "label": "", "value": "$dateTool.get("dd.MM.yyyy HH:mm:ss")"},
+{"className":"FormStep", "label": "Общие сведения о заявителе", "value": ""},
+#if($orgType == "LEGAL")
+    {"className":"FieldText", "label": "Полное наименование", "value": "$s6c1['storedValues']['fullName']"},
+    {"className":"FieldText", "label": "Организационно-правовая форма", "value": "$s6c1['storedValues']['opf']"},
+    #if($s6c1['storedValues']['shortName'])
+    {"className":"FieldText", "label": "Сокращённое наименование", "value": "$s6c1['storedValues']['shortName']"},
+    #end
+    {"className":"FieldText", "label": "ИНН", "value": "$s6c1['storedValues']['inn']"},
+    {"className":"FieldText", "label": "ОГРН", "value": "$s6c1['storedValues']['ogrn']"},
+    #if ($s6c1['storedValues']['kpp'] && $s6c1['storedValues']['kpp'] != "")
+    {"className":"FieldText", "label": "КПП", "value": "$s6c1['storedValues']['kpp']"},
+    #end
+    #if($s6c1['storedValues']['chiefLastName'] && $s6c1['storedValues']['chiefLastName'] != "")
+    {"className":"Panel", "label": "Сведения о руководителе", "value": ""},
+    {"className":"FieldText", "label": "Фамилия", "value": "$s6c1['storedValues']['chiefLastName']"},
+        #if($s6c1['storedValues']['chiefFirstName'] && $s6c1['storedValues']['chiefFirstName'] != "")
+        {"className":"FieldText", "label": "Имя", "value": "$s6c1['storedValues']['chiefFirstName']"},
+        #end
+        #if ($s6c1['storedValues']['chiefMiddleName'] && $s6c1['storedValues']['chiefMiddleName'] != "")
+        {"className":"FieldText", "label": "Отчество", "value": "$s6c1['storedValues']['chiefMiddleName']"},
+        #end
+        #if ($s6c1['storedValues']['chiefPosition'] && $s6c1['storedValues']['chiefPosition'] != "")
+        {"className":"FieldText", "label": "Должность", "value": "$s6c1['storedValues']['chiefPosition']"},
+        #end
+    #end
+    #if($userOrgChief == false)
+    {"className":"Panel", "label": "Сведения о сотруднике", "value": ""},
+    {"className":"FieldText", "label": "Фамилия", "value": "$s64c1['storedValues']['lastName']"},
+    {"className":"FieldText", "label": "Имя", "value": "$s64c1['storedValues']['firstName']"},
+        #if($s64c1['storedValues']['middleName'] && $s64c1['storedValues']['middleName'] != "")
+        {"className":"FieldText", "label": "Отчество", "value": "$s64c1['storedValues']['middleName']"},
+        #end
+        #if ($s64c1['storedValues']['genderFull'] && $s64c1['storedValues']['genderFull'] != "")
+        {"className":"FieldText", "label": "Пол", "value": "$s64c1['storedValues']['genderFull']"},
+        #end
+    {"className":"FieldText", "label": "Дата рождения", "value": "$s64c1['storedValues']['birthDate']"},
+    {"className":"FieldText", "label": "СНИЛС", "value": "$s64c1['storedValues']['snils']"},
+    {"className":"Panel", "label": "Паспорт РФ сотрудника", "value": ""},
+    {"className":"FieldText", "label": "Серия", "value": "$s64c1['storedValues']['rfPasportSeries']"},
+    {"className":"FieldText", "label": "Номер", "value": "$s64c1['storedValues']['rfPasportNumber']"},
+    {"className":"FieldText", "label": "Дата выдачи", "value": "$s64c1['storedValues']['rfPasportIssueDate']"},
+    {"className":"FieldText", "label": "Кем выдано", "value": "$s64c1['storedValues']['rfPasportIssuedBy']"},
+    {"className":"FieldText", "label": "Код подразделения", "value": "$s64c1['storedValues']['rfPasportIssuedById']"},
+    #end
+{"className":"Panel", "label": "Контактная информация", "value": ""},
+    #if ($s9c1 && $s9c1 != "")
+    {"className":"FieldText", "label": "Телефон", "value": "$s9c1"},
+    #end
+    #if ($s10c1 && $s10c1 != "")
+    {"className":"FieldText", "label": "Адрес электронной почты", "value": "$s10c1"},
+    #end
+{"className":"FieldText", "label": "Юридический адрес", "value": "$s12c1['address']['fullAddress']"},
+    #if($s14c1 == "true")
+    {"className":"FieldText", "label": "Фактический адрес", "value": "$s12c1['address']['fullAddress']"},
+    #else
+    {"className":"FieldText", "label": "Фактический адрес", "value": "$s15c1['fullAddress']"},
+    #end
+#elseif($orgType == "BUSINESS")
+{"className":"FieldText", "label": "Сокращённое наименование", "value": "$s7c1['storedValues']['shortName']"},
+{"className":"FieldText", "label": "ИНН", "value": "$s7c1['storedValues']['inn']"},
+{"className":"FieldText", "label": "ОГРНИП", "value": "$s7c1['storedValues']['ogrn']"},
+{"className":"Panel", "label": "Сведения о руководителе", "value": ""},
+    #if($userOrgChief == "false")
+    {"className":"FieldText", "label": "Фамилия", "value": "$s7c1['storedValues']['chiefLastName']"},
+    {"className":"FieldText", "label": "Имя", "value": "$s7c1['storedValues']['chiefFirstName']"},
+        #if($s7c1['storedValues']['chiefMiddleName'] && $s7c1['storedValues']['chiefMiddleName'] != "")
+        {"className":"FieldText", "label": "Отчество", "value": "$s7c1['storedValues']['chiefMiddleName']"},
+        #end
+    {"className":"FieldText", "label": "Дата рождения", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s62c4))"},
+    {"className":"FieldText", "label": "Пол", "value": "$s62c3['text']"},
+    {"className":"FieldText", "label": "СНИЛС", "value": "$s62c5"},
+    {"className":"Panel", "label": "Паспорт РФ руководителя", "value": ""},
+    {"className":"FieldText", "label": "Серия", "value": "$s62c2['series']"},
+    {"className":"FieldText", "label": "Номер", "value": "$s62c2['number']"},
+    {"className":"FieldText", "label": "Дата выдачи", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s62c2['date']))"},
+    {"className":"FieldText", "label": "Кем выдан", "value": "$s62c2['emitter']"},
+    {"className":"FieldText", "label": "Код подразделения", "value": "$s62c2['issueId']"},
+    #elseif($userOrgChief == "true")
+    {"className":"FieldText", "label": "Фамилия", "value": "$s7c1['storedValues']['chiefLastName']"},
+    {"className":"FieldText", "label": "Имя", "value": "$s7c1['storedValues']['chiefFirstName']"},
+        #if($s10c1['storedValues']['chiefMiddleName'] && $s7c1['storedValues']['chiefMiddleName'] != "")
+        {"className":"FieldText", "label": "Отчество", "value": "$s7c1['storedValues']['chiefMiddleName']"},
+        #end
+    {"className":"FieldText", "label": "Дата рождения", "value": "$s44c1['storedValues']['birthDate']"},
+        #if ($s44c1['storedValues']['genderFull'] && $s44c1['storedValues']['genderFull'] != "")
+        {"className":"FieldText", "label": "Пол", "value": "$s44c1['storedValues']['genderFull']"},
+        #end
+    {"className":"FieldText", "label": "СНИЛС", "value": "$s44c1['storedValues']['snils']"},
+    {"className":"Panel", "label": "Паспорт РФ руководителя", "value": ""},
+    {"className":"FieldText", "label": "Серия", "value": "$s44c1['storedValues']['rfPasportSeries']"},
+    {"className":"FieldText", "label": "Номер", "value": "$s44c1['storedValues']['rfPasportNumber']"},
+    {"className":"FieldText", "label": "Дата выдачи", "value": "$s44c1['storedValues']['rfPasportIssueDate']"},
+    {"className":"FieldText", "label": "Кем выдан", "value": "$s44c1['storedValues']['rfPasportIssuedBy']"},
+    {"className":"FieldText", "label": "Код подразделения", "value": "$s44c1['storedValues']['rfPasportIssuedById']"},
+    #end
+    #if($userOrgChief == false)
+    {"className":"Panel", "label": "Сведения о сотруднике", "value": ""},
+    {"className":"FieldText", "label": "Фамилия", "value": "$s32c1['storedValues']['lastName']"},
+    {"className":"FieldText", "label": "Имя", "value": "$s32c1['storedValues']['firstName']"},
+        #if($s32c1['storedValues']['middleName'] && $s32c1['storedValues']['middleName'] != "")
+        {"className":"FieldText", "label": "Отчество", "value": "$s32c1['storedValues']['middleName']"},
+        #end
+        #if ($s32c1['storedValues']['genderFull'] && $s32c1['storedValues']['genderFull'] != "")
+        {"className":"FieldText", "label": "Пол", "value": "$s32c1['storedValues']['genderFull']"},
+        #end
+    {"className":"FieldText", "label": "Дата рождения", "value": "$s32c1['storedValues']['birthDate']"},
+    {"className":"FieldText", "label": "СНИЛС", "value": "$s32c1['storedValues']['snils']"},
+    {"className":"Panel", "label": "Паспорт РФ сотрудника", "value": ""},
+    {"className":"FieldText", "label": "Серия", "value": "$s32c1['storedValues']['rfPasportSeries']"},
+    {"className":"FieldText", "label": "Номер", "value": "$s32c1['storedValues']['rfPasportNumber']"},
+    {"className":"FieldText", "label": "Дата выдачи", "value": "$s32c1['storedValues']['rfPasportIssueDate']"},
+    {"className":"FieldText", "label": "Кем выдан", "value": "$s32c1['storedValues']['rfPasportIssuedBy']"},
+    {"className":"FieldText", "label": "Код подразделения", "value": "$s32c1['storedValues']['rfPasportIssuedById']"},
+    #end
+{"className":"Panel", "label": "Контактная информация", "value": ""},
+    #if($s11c1 && $s11c1 != "")
+    {"className":"FieldText", "label": "Телефон", "value": "$s11c1"},
+    #end
+    #if($s8c1 && $s8c1 != "")
+    {"className":"FieldText", "label": "Адрес электронной почты", "value": "$s8c1"},
+    #end
+    #if($userOrgChief == "true")
+    {"className":"FieldText", "label": "Адрес регистрации", "value": "$s13c1['address']['fullAddress']"},
+    #else
+    {"className":"FieldText", "label": "Адрес регистрации", "value": "$s16c1['fullAddress']"},
+    #end
+    #if($s17c1 == "true")
+        #if($userOrgChief == "true")
+        {"className":"FieldText", "label": "Фактический адрес", "value": "$s13c1['address']['fullAddress']"},
+        #elseif($userOrgChief == "false")
+        {"className":"FieldText", "label": "Адрес регистрации", "value": "$s16c1['fullAddress']"},
+        #end
+    #else
+    {"className":"FieldText", "label": "Фактический адрес", "value": "$s18c1['fullAddress']"},
+    #end
+#end
+#if ($s2c1 == "get")
+{"className":"FormStep", "label": "Адреса места осуществления лицензируемого вида деятельности", "value": ""},
+    #foreach($Address in $s19c1)
+    {"className":"Panel", "label":"Адрес № $velocityCount", "value": ""},
+    {"className":"FieldText", "label": "", "value": "$Address.s19c2['fullAddress']"},
+        #if($Address.s19c3 && $Address.s19c3 != "")
+        {"className":"FieldText", "label": "Комната или офис", "value": "$Address.s19c3"},
+        #end
+        #if($Address.s19c4 && $Address.s19c4 != "")
+        {"className":"FieldText", "label": "Кадастровый номер", "value": "$Address.s19c4"},
+        #end
+        #if($Address.s19c5 && $Address.s19c5 != "")
+        {"className":"FieldText", "label": "Наименование филиала или подразделения организации", "value": "$Address.s19c5"},
+        #end
+    {"className":"FieldText", "label": "Класс пожарного здания", "value": "$Address.s39c1['text']"},
+        #if($Address.s24c1['id'] == "Owned")
+        {"className":"FieldText", "label": "Основание владения или пользования", "value": "В собственности"},
+        {"className":"FieldText", "label": "Номер реестровой записи ЕГРН", "value": "$Address.s24c2"},
+        {"className":"FieldText", "label": "Дата регистрации объекта недвижимости", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd', $Address.s24c3))"},
+        #elseif($Address.s24c1['id'] == "UseLess")
+        {"className":"FieldText", "label": "Основания владения или пользования", "value": "В пользовании (договор на срок менее 12 месяцев)"},
+        {"className":"FieldText", "label": "Вид основания пользования объектом недвижимости", "value": "$Address.s24c4['text']"},
+        {"className":"FieldText", "label": "Наименование собственника", "value": "$Address.s24c5"},
+        {"className":"FieldText", "label": "Срок действия договора", "value": "$Address.s24c6['start']—$Address.s24c6['end']"},
+        #elseif($Address.s24c1['id'] == "UseMore")
+        {"className":"FieldText", "label": "Основание владения или пользования", "value": "В пользовании (договор на срок свыше 12 месяцев)"},
+        {"className":"FieldText", "label": "Вид основания пользования объектом недвижимости", "value": "$Address.s24c7['text']"},
+        {"className":"FieldText", "label": "Номер реестровой записи ЕГРН", "value": "$Address.s24c8"},
+        {"className":"FieldText", "label": "Наименование собственника", "value": "$Address.s24c9"},
+        {"className":"FieldText", "label": "Срок действия договора", "value": "$Address.s24c10['start']—$Address.s24c10['end']"},
+        #end
+    #end
+{"className":"FormStep", "label": "Мобильные средства пожаротушения, используемые для осуществления лицензируемого вида деятельности", "value": ""},
+    #foreach($ts in $s53c1)
+    {"className":"Panel", "label":"Мобильное средство пожаротушения № $velocityCount", "value": ""},
+        #if($ts.s53c2['id'] == "fire_auto")
+        {"className":"FieldText", "label": "Наименование средства пожаротушения", "value": "Пожарный автомобиль"},
+        {"className":"FieldText", "label": "Идентификационный номер (VIN)", "value": "$ts['s53c3']"},
+        {"className":"FieldText", "label": "Марка, модель транспортного средства", "value": "$ts['s53c4']"},
+        {"className":"FieldText", "label": "Наименование (тип транспортного средства)", "value": "$ts['s53c5']"},
+        #elseif($ts.s53c2['id'] == "fire_airplane")
+        {"className":"FieldText", "label": "Наименование средства пожаротушения", "value": "Пожарный самолёт или вертолёт"},
+        {"className":"FieldText", "label": "Идентификационный (регистрационный) номер", "value": "$ts['s53c6']"},
+        {"className":"FieldText", "label": "Адрес места постоянной дислокации", "value": "$ts['s53c7']['fullAddress']"},
+        #elseif($ts.s53c2['id'] == "fire_train")
+        {"className":"FieldText", "label": "Наименование средства пожаротушения", "value": "Пожарный поезд"},
+        {"className":"FieldText", "label": "Идентификационный номер поезда номер", "value": "$ts['s53c8']"},
+        {"className":"FieldText", "label": "Адрес железнодорожной станции", "value": "$ts['s53c9']['fullAddress']"},
+        #elseif($ts.s53c2['id'] == "fire_boat")
+        {"className":"FieldText", "label": "Наименование средства пожаротушения", "value": "Пожарный катер или судно"},
+        {"className":"FieldText", "label": "Идентификационный бортовой номер", "value": "$ts['s53c10']"},
+        {"className":"FieldText", "label": "Адрес порта приписки судна", "value": "$ts['s53c11']['fullAddress']"},
+        #end
+        #if($ts['s43c1'] == "true")
+            #set($equipText = "")
+            #foreach($equip in $ts.s41c1['list'])
+                #if(!$equipText.empty)
+                    #set($equipText = "$equipText, $equip.text")
+                #else
+                    #set($equipText = "$equip.text")
+                #end
+            #end
+        {"className":"FieldText", "label": "Оборудование, установленное на мобильном средстве пожаротушения", "value": "$equipText"},
+        #end
+        #if($ts['s42c1']['id'] == "OwnItem")
+        {"className":"FieldText", "label": "Основание использования", "value": "В собственности"},
+        {"className":"FieldText", "label": "Наименование продавца", "value": "$ts['s42c2']"},
+        {"className":"FieldText", "label": "Серия", "value": "$ts['s42c3']"},
+        {"className":"FieldText", "label": "Номер", "value": "$ts['s42c4']"},
+        {"className":"FieldText", "label": "Дата", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd', $ts['s42c5']))"},
+        #elseif($ts['s42c1']['id'] == "UsedItem")
+        {"className":"FieldText", "label": "Основание использования", "value": "В пользовании"},
+        {"className":"FieldText", "label": "Документ-основание пользования", "value": "$ts['s42c6']['text']"},
+        {"className":"FieldText", "label": "Номер", "value": "$ts['s42c7']"},
+        {"className":"FieldText", "label": "Дата", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd', $ts['s42c8']))"},
+        {"className":"FieldText", "label": "Наименование собственника", "value": "$ts.s42c9"},
+        {"className":"FieldText", "label": "Срок действия", "value": "$ts.s42c10['start']—$ts.s42c10['end']"},
+        #end
+    #end
+{"className":"FormStep", "label": "Сведения об ответственном работнике", "value": ""},
+{"className":"FieldText", "label": "Фамилия", "value": "$s22c1"},
+{"className":"FieldText", "label": "Имя", "value": "$s22c2"},
+    #if($s22c3 && $s22c3 != "")
+    {"className":"FieldText", "label": "Отчество", "value": "$s22c3"},
+    #end
+{"className":"FieldText", "label": "СНИЛС", "value": "$s22c4"},
+
+{"className":"FormStep", "label": "Сведения об образовании ответственного работника", "value": ""},
+{"className":"FieldText", "label": "Образование", "value": "$s52c1['text']"},
+{"className":"FieldText", "label": "Наименование документа", "value": "$s52c10"},
+{"className":"FieldText", "label": "Серия", "value": "$s52c2"},
+{"className":"FieldText", "label": "Номер", "value": "$s52c3"},
+{"className":"FieldText", "label": "Дата выдачи", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s52c4))"},
+{"className":"FieldText", "label": "Номер документа об образовании", "value": "$s52c5"},
+{"className":"FieldText", "label": "Специальность", "value": "$s52c6"},
+{"className":"FieldText", "label": "Квалификация", "value": "$s52c7"},
+    #if($s52c1['id'] == "high" || $s52c1['id'] == "high_secondary")
+    {"className":"FieldText", "label": "Наименование образовательной организации", "value": "$s52c8"},
+    #end
+    #if($s52c9 == "true")
+    {"className":"FieldText", "label": "Наличие сведений в ФИС ФРДО", "value": "Да"},
+    #else
+    {"className":"FieldText", "label": "Наличие сведений в ФИС ФРДО", "value": "Нет"},
+    #end
+
+    #if($s52c1['id'] == "other_high")
+    {"className":"FormStep", "label": "Сведения о профессиональной переподготовке ответственного работника", "value": ""},
+    {"className":"FieldText", "label": "Наименование документа", "value": "$s54c1"},
+        #if($s54c2 && $s54c2 != "")
+        {"className":"FieldText", "label": "Серия", "value": "$s54c2"},
+        #end
+        #if($s54c3 && $s54c3 != "")
+        {"className":"FieldText", "label": "Номер", "value": "$s54c3"},
+        #end
+    {"className":"FieldText", "label": "Дата выдачи", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s54c4))"},
+    {"className":"FieldText", "label": "Регистрационный номер", "value": "$s54c5"},
+    {"className":"FieldText", "label": "Период прохождения обучения", "value": "$s54c6['start']—$s54c6['end']"},
+    {"className":"FieldText", "label": "Наименование образовательной организации", "value": "$s54c7"},
+    {"className":"FieldText", "label": "Номер лицензии", "value": "$s54c8"},
+        #if($s54c9 == "true")
+        {"className":"FieldText", "label": "Наличие сведений в ФИС ФРДО", "value": "Да"},
+        #else
+        {"className":"FieldText", "label": "Наличие сведений в ФИС ФРДО", "value": "Нет"},
+        #end
+    #end
+{"className":"FormStep", "label": "Сведения о повышении квалификации ответственного работника", "value": ""},
+{"className":"FieldText", "label": "Наименование документа", "value": "$s57c1"},
+    #if($s57c2 && $s57c2 != "")
+    {"className":"FieldText", "label": "Серия", "value": "$s57c2"},
+    #end
+{"className":"FieldText", "label": "Номер", "value": "$s57c3"},
+{"className":"FieldText", "label": "Дата выдачи", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s57c4))"},
+{"className":"FieldText", "label": "Регистрационный номер", "value": "$s57c5"},
+{"className":"FieldText", "label": "Период прохождения обучения", "value": "$s57c6['start']—$s57c6['end']"},
+{"className":"FieldText", "label": "Наименование образовательной организации", "value": "$s57c7"},
+{"className":"FieldText", "label": "Номер лицензии", "value": "$s57c8"},
+    #if($s57c9 == "true")
+    {"className":"FieldText", "label": "Наличие сведений в ФИС ФРДО", "value": "Да"},
+    #else
+    {"className":"FieldText", "label": "Наличие сведений в ФИС ФРДО", "value": "Нет"},
+    #end
+{"className":"FormStep", "label": "Сведения о стаже работы ответственного работника", "value": ""},
+    #foreach($WorkExperience in $s58c0)
+    {"className":"Panel", "label":"Сведения о стаже № $velocityCount", "value": ""},
+    {"className":"FieldText", "label": "Документ, подтверждающий стаж работы", "value": "$WorkExperience.s58c1['text']"},
+        #if($WorkExperience.s58c1['id'] == "other_document")
+        {"className":"FieldText", "label": "Наименование документа", "value": "$WorkExperience.s58c2"},
+        #end
+    {"className":"FieldText", "label": "Серия", "value": "$WorkExperience.s58c3"},
+    {"className":"FieldText", "label": "Номер", "value": "$WorkExperience.s58c4"},
+    {"className":"FieldText", "label": "Дата выдачи", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$WorkExperience.s58c5))"},
+    {"className":"FieldText", "label": "Регистрационный номер", "value": "$WorkExperience.s58c6"},
+        #if($s55c1 == "true")
+        {"className":"FieldText", "label": "Наличие стажа работы в ФПС ГПС на руководящих должностях не менее 3 лет", "value": "Да"},
+        #else
+        {"className":"FieldText", "label": "Наличие стажа работы в ФПС ГПС на руководящих должностях не менее 3 лет", "value": "Нет"},
+        #end
+        #if($WorkExperience.s58c7 == "true")
+        {"className":"FieldText", "label": "Наличие сведений в ПФР", "value": "Да"},
+        #else
+        {"className":"FieldText", "label": "Наличие сведений в ПФР", "value": "Нет"},
+        #end
+    #end
+{"className":"FormStep", "label": "Сведения о трудоустройстве и нахождения в штате организации ответственного работника", "value": ""},
+{"className":"Panel", "label": "Трудовой договор", "value": ""},
+{"className":"FieldText", "label": "Оформление по трудовому договору", "value": "$s59c1['text']"},
+    #if($s59c2 && $s59c2 != "")
+    {"className":"FieldText", "label": "Номер трудового договора", "value": "$s59c2"},
+    #end
+{"className":"FieldText", "label": "Дата заключения трудового договора", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s59c3))"},
+    #if($s59c5 == "false")
+    {"className":"FieldText", "label": "Период действия трудового договора", "value": "$s59c4['start']—$s59c4['end']"},
+    #end
+    #if($s59c5 == "true")
+    {"className":"FieldText", "label": "Бессрочное действие трудового договора", "value": "Да"},
+    #end
+    #if($s59c1['id'] == "combining" && $s59c6 == "true")
+    {"className":"Panel", "label": "Дополнительное трудовое соглашение", "value": ""},
+        #if($s59c7 && $s59c7 != "")
+        {"className":"FieldText", "label": "Номер дополнительного трудового соглашения", "value": "$s59c7"},
+        #end
+    {"className":"FieldText", "label": "Дата заключения дополнительного трудового соглашения", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s59c8))"},
+        #if($s59c10 == "false")
+        {"className":"FieldText", "label": "Период действия дополнительного трудового соглашения", "value": "$s59c9['start']—$s59c9['end']"},
+        #end
+        #if($s59c10 == "true")
+        {"className":"FieldText", "label": "Бессрочное действие дополнительного трудового соглашения", "value": "Да"},
+        #end
+    #end
+
+{"className":"FormStep", "label": "Сведения о работниках", "value": ""},
+    #foreach($Employee in $s20c1)
+    {"className":"Panel", "label":"Работник № $velocityCount", "value": ""},
+    {"className":"FieldText", "label": "Фамилия", "value": "$Employee.s20c2"},
+    {"className":"FieldText", "label": "Имя", "value": "$Employee.s20c3"},
+        #if($Employee.s20c4 && $Employee.s20c4 != "")
+        {"className":"FieldText", "label": "Отчество", "value": "$Employee.s20c4"},
+        #end
+    {"className":"FieldText", "label": "СНИЛС", "value": "$Employee.s20c5"},
+    #end
+{"className":"FormStep", "label": "Подразделение МЧС России, в которое направляется заявление", "value": ""},
+{"className":"FieldText", "label": "", "value": "$s23c1['originalItem']['attributeValues']['TITLE']"},
+#elseif ($s2c1 == "stop")
+{"className":"FormStep", "label": "Номер лицензии", "value": ""},
+{"className":"FieldText", "label": "", "value": "$s26c1"},
+{"className":"FieldText", "label": "Дата выдачи", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s26c2))"},
+#elseif ($s35c1 == "contact")
+{"className":"FormStep", "label": "Номер лицензии", "value": ""},
+{"className":"FieldText", "label": "", "value": "$s26c1"},
+{"className":"FieldText", "label": "Дата выдачи", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s26c2))"},
+
+{"className":"FormStep", "label": "Прежние контактные данные", "value": ""},
+    #if ($s33c1 == "change_phone")
+    {"className":"FieldText", "label": "Номер телефона", "value": "$s36c1"},
+    #elseif ($s33c1 == "change_email")
+    {"className":"FieldText", "label": "Адрес электронной почты", "value": "$s37c1"},
+    #elseif ($s33c1 == "change_phone_email")
+    {"className":"FieldText", "label": "Номер телефона", "value": "$s36c1"},
+    {"className":"FieldText", "label": "Адрес электронной почты", "value": "$s37c1"},
+    #end
+#elseif ($s2c1 == "confirm")
+{"className":"FormStep", "label": "Номер лицензии", "value": ""},
+{"className":"FieldText", "label": "", "value": "$s26c1"},
+{"className":"FieldText", "label": "Дата выдачи", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s26c2))"},
+{"className":"FormStep", "label": "Перечень пожаров, потушенных в течение 3 лет", "value": ""},
+    #if($s31c1 == "true")
+        #foreach($fire in $s21c1)
+        {"className":"Panel", "label":"Пожар № $velocityCount", "value": ""},
+        {"className":"FieldText", "label": "Наименование объекта", "value": "$fire.s21c2"},
+        {"className":"FieldText", "label": "Адрес объекта", "value": "$fire.s21c3['fullAddress']"},
+        {"className":"FieldText", "label": "Дата пожара", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$fire.s21c4))"},
+        #end
+    #elseif($s31c1 == "false")
+    {"className":"FieldText", "label": "", "value": "Лицензиат не осуществлял тушение пожаров в течение последних 3 лет"},
+    #end
+#elseif ($s35c1 == "change")
+{"className":"FormStep", "label": "Причины внесения изменений в реестр лицензий", "value": ""},
+    #if ($s27c6 == "true")
+    {"className":"FieldText", "label": "", "value": "Реорганизация юридического лица в форме преобразования"},
+    #end
+    #if ($s27c5 == "true")
+    {"className":"FieldText", "label": "", "value": "Реорганизация юридического лица в форме слияния"},
+    #end
+    #if ($s27c4 == "true")
+    {"className":"FieldText", "label": "", "value": "Реорганизация юридического лица в форме присоединения лицензиата к другому юридическому лицу"},
+    #end
+    #if ($s27c3 == "true")
+    {"className":"FieldText", "label": "", "value": "Изменение наименования лицензиата, изменение наименования филиала лицензиата"},
+    #end
+    #if ($s27c2 == "true")
+    {"className":"FieldText", "label": "", "value": "Изменение адреса места нахождения лицензиата, изменение адреса места нахождения филиала лицензиата"},
+    #end
+    #if ($s27c1 == "true")
+    {"className":"FieldText", "label": "", "value": "Изменение мест осуществления лицензируемого вида деятельности"},
+    #end
+    #if ($s34c4 == "true")
+    {"className":"FieldText", "label": "", "value": "Изменение имени, фамилии и (в случае, если имеется) отчества индивидуального предпринимателя"},
+    #end
+    #if ($s34c3 == "true")
+    {"className":"FieldText", "label": "", "value": "Изменение места жительства индивидуального предпринимателя"},
+    #end
+    #if ($s34c2 == "true")
+    {"className":"FieldText", "label": "", "value": "Изменение реквизитов документа, удостоверяющего личность индивидуального предпринимателя"},
+    #end
+    #if ($s34c1 == "true")
+    {"className":"FieldText", "label": "", "value": "Изменение мест осуществления лицензируемого вида деятельности"},
+    #end
+{"className":"FormStep", "label": "Номер лицензии", "value": ""},
+{"className":"FieldText", "label": "", "value": "$s26c1"},
+{"className":"FieldText", "label": "Дата выдачи", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s26c2))"},
+    #if ($s28c1 == "get")
+    {"className":"FormStep", "label": "Добавление данных в лицензию", "value": ""},
+    {"className":"Panel", "label": "Адреса места осуществления лицензируемого вида деятельности", "value": ""},
+
+        #foreach($Address in $s29c1)
+
+        {"className":"Panel", "label":"Адрес № $velocityCount", "value": ""},
+
+        {"className":"FieldText", "label": "", "value": "$Address.s29c2['fullAddress']"},
+
+            #if($Address.s29c3 && $Address.s29c3 != "")
+            {"className":"FieldText", "label": "Комната или офис", "value": "$Address.s29c3"},
+            #end
+            #if($Address.s29c4 && $Address.s29c4 != "")
+            {"className":"FieldText", "label": "Кадастровый номер", "value": "$Address.s29c4"},
+            #end
+            #if($Address.s29c5 && $Address.s29c5 != "")
+            {"className":"FieldText", "label": "Наименование филиала или подразделения организации", "value": "$Address.s29c16"},
+            #end
+
+        {"className":"FieldText", "label": "Класс пожарного здания", "value": "$Address.s39c1['text']"},
+
+            #if($Address.s24c1['id'] == "Owned")
+            {"className":"FieldText", "label": "Основание владения или пользования", "value": "В собственности"},
+            {"className":"FieldText", "label": "Номер реестровой записи ЕГРН", "value": "$Address.s24c2"},
+            {"className":"FieldText", "label": "Дата регистрации объекта недвижимости", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd', $Address.s24c3))"},
+            #elseif($Address.s24c1['id'] == "UseLess")
+            {"className":"FieldText", "label": "Основания владения или пользования", "value": "В пользовании (договор на срок менее 12 месяцев)"},
+            {"className":"FieldText", "label": "Вид основания пользования объектом недвижимости", "value": "$Address.s24c4['text']"},
+            {"className":"FieldText", "label": "Наименование собственника", "value": "$Address.s24c5"},
+            {"className":"FieldText", "label": "Срок действия договора", "value": "$Address.s24c6['start']—$Address.s24c6['end']"},
+
+            #elseif($Address.s24c1['id'] == "UseMore")
+            {"className":"FieldText", "label": "Основание владения или пользования", "value": "В пользовании (договор на срок свыше 12 месяцев)"},
+            {"className":"FieldText", "label": "Вид основания пользования объектом недвижимости", "value": "$Address.s24c7['text']"},
+            {"className":"FieldText", "label": "Номер реестровой записи ЕГРН", "value": "$Address.s24c8"},
+            {"className":"FieldText", "label": "Наименование собственника", "value": "$Address.s24c9"},
+            {"className":"FieldText", "label": "Срок действия договора", "value": "$Address.s24c10['start']—$Address.s24c10['end']"},
+            #end
+        #end
+    #elseif ($s28c1 == "delete")
+    {"className":"FormStep", "label": "Удаление данных из лицензии", "value": ""},
+    {"className":"Panel", "label": "Адреса места осуществления лицензируемого вида деятельности", "value": ""},
+
+        #foreach($Address in $s30c1)
+
+        {"className":"Panel", "label":"Адрес № $velocityCount", "value": ""},
+
+        {"className":"FieldText", "label": "", "value": "$Address.s30c2['fullAddress']"},
+
+            #if($Address.s30c3 && $Address.s30c3 != "")
+            {"className":"FieldText", "label": "Комната или офис", "value": "$Address.s30c3"},
+            #end
+            #if($Address.s30c4 && $Address.s30c4 != "")
+            {"className":"FieldText", "label": "Кадастровый номер", "value": "$Address.s30c4"},
+            #end
+        #end
+    #elseif ($s28c1 == "change")
+    {"className":"FormStep", "label": "Добавление данных в лицензию", "value": ""},
+    {"className":"Panel", "label": "Адреса места осуществления лицензируемого вида деятельности", "value": ""},
+
+        #foreach($Address in $s29c1)
+
+        {"className":"Panel", "label":"Адрес № $velocityCount", "value": ""},
+
+        {"className":"FieldText", "label": "", "value": "$Address.s29c2['fullAddress']"},
+
+            #if($Address.s29c3 && $Address.s29c3 != "")
+            {"className":"FieldText", "label": "Комната или офис", "value": "$Address.s29c3"},
+            #end
+            #if($Address.s29c4 && $Address.s29c4 != "")
+            {"className":"FieldText", "label": "Кадастровый номер", "value": "$Address.s29c4"},
+            #end
+            #if($Address.s29c16 && $Address.s29c16 != "")
+            {"className":"FieldText", "label": "Наименование филиала или подразделения организации", "value": "$Address.s29c16"},
+            #end
+
+
+        {"className":"FieldText", "label": "Класс пожарного здания", "value": "$Address.s39c1['text']"},
+
+            #if($Address.s24c1['id'] == "Owned")
+            {"className":"FieldText", "label": "Основание владения или пользования", "value": "В собственности"},
+            {"className":"FieldText", "label": "Номер реестровой записи ЕГРН", "value": "$Address.s24c2"},
+            {"className":"FieldText", "label": "Дата регистрации объекта недвижимости", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd', $Address.s24c3))"},
+            #elseif($Address.s24c1['id'] == "UseLess")
+            {"className":"FieldText", "label": "Основания владения или пользования", "value": "В пользовании (договор на срок менее 12 месяцев)"},
+            {"className":"FieldText", "label": "Вид основания пользования объектом недвижимости", "value": "$Address.s24c4['text']"},
+            {"className":"FieldText", "label": "Наименование собственника", "value": "$Address.s24c5"},
+            {"className":"FieldText", "label": "Срок действия договора", "value": "$Address.s24c6['start']—$Address.s24c6['end']"},
+
+            #elseif($Address.s24c1['id'] == "UseMore")
+            {"className":"FieldText", "label": "Основание владения или пользования", "value": "В пользовании (договор на срок свыше 12 месяцев)"},
+            {"className":"FieldText", "label": "Вид основания пользования объектом недвижимости", "value": "$Address.s24c7['text']"},
+            {"className":"FieldText", "label": "Номер реестровой записи ЕГРН", "value": "$Address.s24c8"},
+            {"className":"FieldText", "label": "Наименование собственника", "value": "$Address.s24c9"},
+            {"className":"FieldText", "label": "Срок действия договора", "value": "$Address.s24c10['start']—$Address.s24c10['end']"},
+            #end
+        #end
+
+    {"className":"FormStep", "label": "Удаление данных из лицензии", "value": ""},
+    {"className":"Panel", "label": "Адреса места осуществления лицензируемого вида деятельности", "value": ""},
+
+        #foreach($Address in $s30c1)
+
+        {"className":"Panel", "label":"Адрес № $velocityCount", "value": ""},
+
+        {"className":"FieldText", "label": "", "value": "$Address.s30c2['fullAddress']"},
+
+            #if($Address.s30c3 && $Address.s30c3 != "")
+            {"className":"FieldText", "label": "Комната или офис", "value": "$Address.s30c3"},
+            #end
+            #if($Address.s30c4 && $Address.s30c4 != "")
+            {"className":"FieldText", "label": "Кадастровый номер", "value": "$Address.s30c4"},
+            #end
+        #end
+    #end
+    #if (($s27c1 == "true" || $s34c1 == "true") && ($s28c1 == "change" || $s28c1 == "get"))
+    {"className":"FormStep", "label": "Мобильные средства пожаротушения, используемые для осуществления лицензируемого вида деятельности", "value": ""},
+        #foreach($ts in $s53c1)
+        {"className":"Panel", "label":"Мобильное средство пожаротушения № $velocityCount", "value": ""},
+            #if($ts.s53c2['id'] == "fire_auto")
+            {"className":"FieldText", "label": "Наименование средства пожаротушения", "value": "Пожарный автомобиль"},
+            {"className":"FieldText", "label": "Идентификационный номер (VIN)", "value": "$ts['s53c3']"},
+            {"className":"FieldText", "label": "Марка, модель транспортного средства", "value": "$ts['s53c4']"},
+            {"className":"FieldText", "label": "Наименование (тип транспортного средства)", "value": "$ts['s53c5']"},
+            #elseif($ts.s53c2['id'] == "fire_airplane")
+            {"className":"FieldText", "label": "Наименование средства пожаротушения", "value": "Пожарный самолёт или вертолёт"},
+            {"className":"FieldText", "label": "Идентификационный (регистрационный) номер", "value": "$ts['s53c6']"},
+            {"className":"FieldText", "label": "Адрес места постоянной дислокации", "value": "$ts['s53c7']['fullAddress']"},
+            #elseif($ts.s53c2['id'] == "fire_train")
+            {"className":"FieldText", "label": "Наименование средства пожаротушения", "value": "Пожарный поезд"},
+            {"className":"FieldText", "label": "Идентификационный номер поезда номер", "value": "$ts['s53c8']"},
+            {"className":"FieldText", "label": "Адрес железнодорожной станции", "value": "$ts['s53c9']['fullAddress']"},
+            #elseif($ts.s53c2['id'] == "fire_boat")
+            {"className":"FieldText", "label": "Наименование средства пожаротушения", "value": "Пожарный катер или судно"},
+            {"className":"FieldText", "label": "Идентификационный бортовой номер", "value": "$ts['s53c10']"},
+            {"className":"FieldText", "label": "Адрес порта приписки судна", "value": "$ts['s53c11']['fullAddress']"},
+            #end
+            #if($ts['s43c1'] == "true")
+                #set($equipText = "")
+                #foreach($equip in $ts.s41c1['list'])
+                    #if(!$equipText.empty)
+                        #set($equipText = "$equipText, $equip.text")
+                    #else
+                        #set($equipText = "$equip.text")
+                    #end
+                #end
+            {"className":"FieldText", "label": "Оборудование, установленное на мобильном средстве пожаротушения", "value": "$equipText"},
+            #end
+            #if($ts['s42c1']['id'] == "OwnItem")
+            {"className":"FieldText", "label": "Основание использования", "value": "В собственности"},
+            {"className":"FieldText", "label": "Наименование продавца", "value": "$ts['s42c2']"},
+            {"className":"FieldText", "label": "Серия", "value": "$ts['s42c3']"},
+            {"className":"FieldText", "label": "Номер", "value": "$ts['s42c4']"},
+            {"className":"FieldText", "label": "Дата", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd', $ts['s42c5']))"},
+            #elseif($ts['s42c1']['id'] == "UsedItem")
+            {"className":"FieldText", "label": "Основание использования", "value": "В пользовании"},
+            {"className":"FieldText", "label": "Документ-основание пользования", "value": "$ts['s42c6']['text']"},
+            {"className":"FieldText", "label": "Номер", "value": "$ts['s42c7']"},
+            {"className":"FieldText", "label": "Дата", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd', $ts['s42c8']))"},
+            {"className":"FieldText", "label": "Наименование собственника", "value": "$ts.s42c9"},
+            {"className":"FieldText", "label": "Срок действия", "value": "$ts.s42c10['start']—$ts.s42c10['end']"},
+            #end
+        #end
+    {"className":"FormStep", "label": "Сведения об ответственном работнике", "value": ""},
+    {"className":"FieldText", "label": "Фамилия", "value": "$s22c1"},
+    {"className":"FieldText", "label": "Имя", "value": "$s22c2"},
+        #if($s22c3 && $s22c3 != "")
+        {"className":"FieldText", "label": "Отчество", "value": "$s22c3"},
+        #end
+    {"className":"FieldText", "label": "СНИЛС", "value": "$s22c4"},
+
+    {"className":"FormStep", "label": "Сведения об образовании ответственного работника", "value": ""},
+    {"className":"FieldText", "label": "Образование", "value": "$s52c1['text']"},
+    {"className":"FieldText", "label": "Наименование документа", "value": "$s52c10"},
+    {"className":"FieldText", "label": "Серия", "value": "$s52c2"},
+    {"className":"FieldText", "label": "Номер", "value": "$s52c3"},
+    {"className":"FieldText", "label": "Дата выдачи", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s52c4))"},
+    {"className":"FieldText", "label": "Номер документа об образовании", "value": "$s52c5"},
+    {"className":"FieldText", "label": "Специальность", "value": "$s52c6"},
+    {"className":"FieldText", "label": "Квалификация", "value": "$s52c7"},
+        #if($s52c1['id'] == "high" || $s52c1['id'] == "high_secondary")
+        {"className":"FieldText", "label": "Наименование образовательной организации", "value": "$s52c8"},
+        #end
+        #if($s52c9 == "true")
+        {"className":"FieldText", "label": "Наличие сведений в ФИС ФРДО", "value": "Да"},
+        #else
+        {"className":"FieldText", "label": "Наличие сведений в ФИС ФРДО", "value": "Нет"},
+        #end
+
+        #if($s52c1['id'] == "other_high")
+        {"className":"FormStep", "label": "Сведения о профессиональной переподготовке ответственного работника", "value": ""},
+        {"className":"FieldText", "label": "Наименование документа", "value": "$s54c1"},
+            #if($s54c2 && $s54c2 != "")
+            {"className":"FieldText", "label": "Серия", "value": "$s54c2"},
+            #end
+            #if($s54c3 && $s54c3 != "")
+            {"className":"FieldText", "label": "Номер", "value": "$s54c3"},
+            #end
+        {"className":"FieldText", "label": "Дата выдачи", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s54c4))"},
+        {"className":"FieldText", "label": "Регистрационный номер", "value": "$s54c5"},
+        {"className":"FieldText", "label": "Период прохождения обучения", "value": "$s54c6['start']—$s54c6['end']"},
+        {"className":"FieldText", "label": "Наименование образовательной организации", "value": "$s54c7"},
+        {"className":"FieldText", "label": "Номер лицензии", "value": "$s54c8"},
+            #if($s54c9 == "true")
+            {"className":"FieldText", "label": "Наличие сведений в ФИС ФРДО", "value": "Да"},
+            #else
+            {"className":"FieldText", "label": "Наличие сведений в ФИС ФРДО", "value": "Нет"},
+            #end
+        #end
+    {"className":"FormStep", "label": "Сведения о повышении квалификации ответственного работника", "value": ""},
+    {"className":"FieldText", "label": "Наименование документа", "value": "$s57c1"},
+        #if($s57c2 && $s57c2 != "")
+        {"className":"FieldText", "label": "Серия", "value": "$s57c2"},
+        #end
+    {"className":"FieldText", "label": "Номер", "value": "$s57c3"},
+    {"className":"FieldText", "label": "Дата выдачи", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s57c4))"},
+    {"className":"FieldText", "label": "Регистрационный номер", "value": "$s57c5"},
+    {"className":"FieldText", "label": "Период прохождения обучения", "value": "$s57c6['start']—$s57c6['end']"},
+    {"className":"FieldText", "label": "Наименование образовательной организации", "value": "$s57c7"},
+    {"className":"FieldText", "label": "Номер лицензии", "value": "$s57c8"},
+        #if($s57c9 == "true")
+        {"className":"FieldText", "label": "Наличие сведений в ФИС ФРДО", "value": "Да"},
+        #else
+        {"className":"FieldText", "label": "Наличие сведений в ФИС ФРДО", "value": "Нет"},
+        #end
+    {"className":"FormStep", "label": "Сведения о стаже работы ответственного работника", "value": ""},
+        #foreach($WorkExperience in $s58c0)
+        {"className":"Panel", "label":"Сведения о стаже № $velocityCount", "value": ""},
+        {"className":"FieldText", "label": "Документ, подтверждающий стаж работы", "value": "$WorkExperience.s58c1['text']"},
+            #if($WorkExperience.s58c1['id'] == "other_document")
+            {"className":"FieldText", "label": "Наименование документа", "value": "$WorkExperience.s58c2"},
+            #end
+        {"className":"FieldText", "label": "Серия", "value": "$WorkExperience.s58c3"},
+        {"className":"FieldText", "label": "Номер", "value": "$WorkExperience.s58c4"},
+        {"className":"FieldText", "label": "Дата выдачи", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$WorkExperience.s58c5))"},
+        {"className":"FieldText", "label": "Регистрационный номер", "value": "$WorkExperience.s58c6"},
+            #if($s60c1 == "true")
+            {"className":"FieldText", "label": "Наличие стажа работы в ФПС ГПС на руководящих должностях не менее 3 лет", "value": "Да"},
+            #else
+            {"className":"FieldText", "label": "Наличие стажа работы в ФПС ГПС на руководящих должностях не менее 3 лет", "value": "Нет"},
+            #end
+            #if($WorkExperience.s58c7 == "true")
+            {"className":"FieldText", "label": "Наличие сведений в ПФР", "value": "Да"},
+            #else
+            {"className":"FieldText", "label": "Наличие сведений в ПФР", "value": "Нет"},
+            #end
+        #end
+    {"className":"FormStep", "label": "Сведения о трудоустройстве и нахождения в штате организации ответственного работника", "value": ""},
+    {"className":"Panel", "label": "Трудовой договор", "value": ""},
+    {"className":"FieldText", "label": "Оформление по трудовому договору", "value": "$s59c1['text']"},
+        #if($s59c2 && $s59c2 != "")
+        {"className":"FieldText", "label": "Номер трудового договора", "value": "$s59c2"},
+        #end
+    {"className":"FieldText", "label": "Дата заключения трудового договора", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s59c3))"},
+        #if($s59c5 == "false")
+        {"className":"FieldText", "label": "Период действия трудового договора", "value": "$s59c4['start']—$s59c4['end']"},
+        #end
+        #if($s59c5 == "true")
+        {"className":"FieldText", "label": "Бессрочное действие трудового договора", "value": "Да"},
+        #end
+        #if($s59c1['id'] == "combining" && $s59c6 == "true")
+        {"className":"Panel", "label": "Дополнительное трудовое соглашение", "value": ""},
+            #if($s59c7 && $s59c7 != "")
+            {"className":"FieldText", "label": "Номер дополнительного трудового соглашения", "value": "$s59c7"},
+            #end
+        {"className":"FieldText", "label": "Дата заключения дополнительного трудового соглашения", "value": "$dateTool.format('dd.MM.yyyy',$dateTool.toDate('yyyy-MM-dd',$s59c8))"},
+            #if($s59c10 == "false")
+            {"className":"FieldText", "label": "Период действия дополнительного трудового соглашения", "value": "$s59c9['start']—$s59c9['end']"},
+            #end
+            #if($s59c10 == "true")
+            {"className":"FieldText", "label": "Бессрочное действие дополнительного трудового соглашения", "value": "Да"},
+            #end
+        #end
+
+    {"className":"FormStep", "label": "Сведения о работниках", "value": ""},
+        #foreach($Employee in $s20c1)
+        {"className":"Panel", "label":"Работник № $velocityCount", "value": ""},
+        {"className":"FieldText", "label": "Фамилия", "value": "$Employee.s20c2"},
+        {"className":"FieldText", "label": "Имя", "value": "$Employee.s20c3"},
+            #if($Employee.s20c4 && $Employee.s20c4 != "")
+            {"className":"FieldText", "label": "Отчество", "value": "$Employee.s20c4"},
+            #end
+        {"className":"FieldText", "label": "СНИЛС", "value": "$Employee.s20c5"},
+        #end
+    {"className":"FormStep", "label": "Подразделение МЧС России, в которое направляется заявление", "value": ""},
+    {"className":"FieldText", "label": "", "value": "$s23c1['originalItem']['attributeValues']['TITLE']"},
+    #end
+#end
+{}
+]
